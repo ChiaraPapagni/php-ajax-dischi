@@ -8,7 +8,7 @@
     <!-- My StyleSheet -->
     <link rel="stylesheet" href="../assets/css/style.css">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https: //stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh' crossorigin='anonymous'>
     
     <?php require 'db.php'; ?>
 </head>
@@ -19,15 +19,25 @@
     <!-- /#site_header -->
 
     <main id="site_main">
-        <?php foreach ($albums as $album): ?>
-            <div>
-                <img src="<?= $album['poster'] ?>"/>
-                <h3><?= $album['title'] ?></h3>
-                <span class='author'><?= $album['author'] ?></span>
-                <span><?= $album['genre'] ?></span>
-                <span><?= $album['year'] ?></span>
-            </div>
-        <?php endforeach; ?>
+        <div class="d-flex justify-content-center flex-wrap">
+            <?php foreach ($albums as $album): ?>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="card text-center m-2 rounded-0">
+                            <img src="<?= $album[
+                                'poster'
+                            ] ?>" class="img-fluid"/>
+                            <h4 class="text-uppercase my-3"><?= $album[
+                                'title'
+                            ] ?></h4>
+                            <p class="py-0 my-0"><?= $album['author'] ?></p>
+                            <p class="py-0 my-0"><?= $album['year'] ?></p>
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+            <?php endforeach; ?>            
+        </div>
     </main>
     <!-- /#site_main -->
 
