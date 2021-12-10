@@ -1,7 +1,7 @@
 const app = new Vue({
     el: '#app',
     data: {
-        albums: null,
+        albums: [],
         selectedGenre: "",
         genresList: [],
         selectedArtist: "",
@@ -11,9 +11,8 @@ const app = new Vue({
         axios
             .get('./api/albums.php')
             .then(response => {
-                console.log(response);
                 this.albums = response.data;
-                this.albums.forEach((album) => {
+                response.data.forEach((album) => {
                     if (!this.genresList.includes(album.genre)) {
                         this.genresList.push(album.genre);
                     }
@@ -27,21 +26,33 @@ const app = new Vue({
             })
     },
     methods: {
-        filterGenre(event) {
-            this.selectedGenre = event;
+        filterGenre(value) {
+            this.selectedGenre = value;
         },
-        filterArtist(event) {
-            this.selectedArtist = event;
+        filterArtist(value) {
+            this.selectedArtist = value;
         },
     },
     computed: {
         getFilteredAlbums() {
-            return this.albums.filter((element) => {
-                return (
-                    element.genre.includes(this.selectedGenre) &&
-                    element.author.includes(this.selectedArtist)
-                );
-            });
-        },
+            if (this.selectedGenre === "" && this.selectedArtist) {
+                return this.albums
+            } else {
+                var filtered = this.albums.filter((element) => {
+                    return (
+                        element.genre.includes(this.selectedGenre) &&
+                        element.author.includes(this.selectedArtist)
+                    );
+                })
+                return filtered
+            }
+        }
+        /* return this.albums.filter((element) => {
+            return (
+                element.genre.includes(this.selectedGenre) &&
+                element.author.includes(this.selectedArtist)
+            );
+        });
+    }, */
     },
 })
